@@ -5,21 +5,21 @@ import './App.css';
 function App() {
 
   const [weather, setWeather] = useState({});
-  const [city, setCity] = useState('');
+  const [location, setLocation] = useState('');
 
-const apiKey = 'b4b018d477333626e0f4611080b5b72f'
+  const apiKey = 'b4b018d477333626e0f4611080b5b72f'
 
-const getWeather = (e) => {
-  if (e.key === 'Enter') {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
-    .then(res => res.json())
-    .then(result => {
-      setWeather(result);
-      setCity('');
-      console.log(result);
-    })
+  const getWeather = (e) => {
+    if (e.key === 'Enter') {
+      fetch(`https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`)
+      .then(res => res.json())
+      .then(result => {
+        setWeather(result);
+        setLocation('');
+        console.log(result);
+      })
+    }
   }
-}
 
   return (
     <div className="App">
@@ -27,12 +27,13 @@ const getWeather = (e) => {
           <input
             type="text"
             placeholder="Saisissez le nom de la ville..."
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
             onKeyPress={getWeather}
           />
           { 
-            typeof weather.main != 'undefined' ?
+            //typeof weather.main != 'undefined' ?
+            (weather.cod === 200) ?
               (
                 <div>
                     <div>
@@ -49,10 +50,10 @@ const getWeather = (e) => {
                     </div>
                 </div>
               )
-              :
+            :
               (
                 <div>
-                  Météo introuvable {city}
+                  city not found{location}
                </div>
               )
           }
