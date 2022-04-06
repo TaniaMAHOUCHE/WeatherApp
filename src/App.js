@@ -32,7 +32,6 @@ function App() {
             onKeyPress={getWeather}
           />
           { 
-            //typeof weather.main != 'undefined' ?
             (weather.cod === 200) ?
               (
                 <div>
